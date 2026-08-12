@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedback = {
       feedbackRating: selectedRating,
       feedbackComment: comment,
-      inferenceSec: Math.round(Math.random() * 20) + 5,
+      inferenceSec: Math.round((Math.random() * 20 + 5) * 10) / 10,
     };
     submitFeedback(feedback);
   });
