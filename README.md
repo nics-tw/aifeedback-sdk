@@ -54,7 +54,7 @@
 try {
   FeedbackSDK.init({
     serviceId: 'your-unique-service-id', // 您的服務 ID，請向管理員申請
-    dsn: 'https://aifeedback.nics.nat.gov.tw', // 您的 API 基礎路徑
+    dsn: 'https://aifeedback.nics.nat.gov.tw/api', // 您的 API 基礎路徑
   });
 } catch (error) {
   console.error('SDK 初始化失敗:', error.message);
