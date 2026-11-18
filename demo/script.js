@@ -22,39 +22,58 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('SDK 初始化失敗:', error.message);
   }
 
+  const RATING_MODES = {
+    3: [
+      { value: 'good', label: '滿意 👍' },
+      { value: 'normal', label: '普通 😐' },
+      { value: 'bad', label: '不滿意 👎' },
+    ],
+    5: [
+      { value: 'good', label: '滿意 👍' },
+      { value: 'decent', label: '還不錯 🙂' },
+      { value: 'normal', label: '普通 😐' },
+      { value: 'weak', label: '不太好 🙁' },
+      { value: 'bad', label: '不滿意 👎' },
+    ],
+  };
+
   let selectedRating = null;
-  const goodBtn = document.getElementById('goodBtn');
-  const normalBtn = document.getElementById('normalBtn');
-  const badBtn = document.getElementById('badBtn');
-  const ratingButtons = [goodBtn, normalBtn, badBtn];
+  const ratingButtonsContainer = document.getElementById('ratingButtons');
 
   function resetButtonStyles() {
-    ratingButtons.forEach((btn) => {
-      btn.classList.remove('selected-good', 'selected-normal', 'selected-bad');
+    ratingButtonsContainer.querySelectorAll('button').forEach((btn) => {
+      btn.classList.remove(`selected-${btn.dataset.rating}`);
     });
   }
 
-  goodBtn.addEventListener('click', () => {
-    selectedRating = 'good';
-    resetButtonStyles();
-    goodBtn.classList.add('selected-good');
+  function renderRatingButtons(mode) {
+    selectedRating = null;
+    ratingButtonsContainer.replaceChildren();
+    RATING_MODES[mode].forEach(({ value, label }) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = label;
+      btn.dataset.rating = value;
+      btn.addEventListener('click', () => {
+        selectedRating = value;
+        resetButtonStyles();
+        btn.classList.add(`selected-${value}`);
+      });
+      ratingButtonsContainer.appendChild(btn);
+    });
+  }
+
+  document.querySelectorAll('input[name="ratingMode"]').forEach((radio) => {
+    radio.addEventListener('change', (event) => {
+      renderRatingButtons(event.target.value);
+    });
   });
 
-  normalBtn.addEventListener('click', () => {
-    selectedRating = 'normal';
-    resetButtonStyles();
-    normalBtn.classList.add('selected-normal');
-  });
-
-  badBtn.addEventListener('click', () => {
-    selectedRating = 'bad';
-    resetButtonStyles();
-    badBtn.classList.add('selected-bad');
-  });
+  renderRatingButtons(document.querySelector('input[name="ratingMode"]:checked').value);
 
   document.getElementById('submitBtn').addEventListener('click', () => {
     if (!selectedRating) {
-      alert('請選擇滿意、普通或不滿意');
+      alert('請先選擇一個評分');
       return;
     }
     const comment = document.getElementById('comment').value;

@@ -19,6 +19,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="rating-mode" role="radiogroup" aria-label="評分方式">
+      <span class="rating-mode-label">評分方式：</span>
+      <label>
+        <input type="radio" name="ratingMode" value="3" checked />
+        三元
+      </label>
+      <label>
+        <input type="radio" name="ratingMode" value="5" />
+        五元
+      </label>
+    </div>
     <div class="chat-container">
       <div class="chat-header">
         <h1>客服機器人</h1>
@@ -34,11 +45,7 @@
         <div class="message bot-message">
           請問這次的服務您還滿意嗎？請給我一點回饋！
           <div class="feedback-section">
-            <div class="feedback-buttons">
-              <button id="goodBtn">滿意 👍</button>
-              <button id="normalBtn">普通 😐</button>
-              <button id="badBtn">不滿意 👎</button>
-            </div>
+            <div class="feedback-buttons" id="ratingButtons"></div>
             <textarea
               id="comment"
               placeholder="請輸入您的建議..."
