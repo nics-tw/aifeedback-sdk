@@ -101,7 +101,7 @@ submitFeedback({
 提交使用者回饋。
 
 - `feedbackData` `<Object>` (必填): 包含回饋內容的物件。
-  - `feedbackRating` `<string>` (必填): 其值必須是 `"good"`, `"normal"`, 或 `"bad"` 其中之一。
+  - `feedbackRating` `<string>` (必填): 其值必須是 `"good"`, `"decent"`, `"normal"`, `"weak"`, 或 `"bad"` 其中之一。
   - `feedbackComment` `<string>` (選填): 長度上限為 500 字元的字串。
   - `inferenceSec` `<number>` (選填): 一個非負數，代表互動的秒數。
 - **回傳值**: `<Promise<Object>>` 一個 promise，成功時會 resolve 伺服器回傳的物件。

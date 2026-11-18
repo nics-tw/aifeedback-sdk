@@ -19,7 +19,7 @@ describe('validateFeedbackData', () => {
     });
 
     test('should accept all valid rating values', () => {
-      const validRatings = ['good', 'normal', 'bad'];
+      const validRatings = ['good', 'decent', 'normal', 'weak', 'bad'];
 
       validRatings.forEach((rating) => {
         const result = validateFeedbackData({
@@ -27,6 +27,15 @@ describe('validateFeedbackData', () => {
         });
         expect(result).toBeNull();
       });
+    });
+
+    test.each(['decent', 'weak'])('should accept new rating "%s" with complete data', (rating) => {
+      const result = validateFeedbackData({
+        feedbackRating: rating,
+        feedbackComment: 'comment',
+        inferenceSec: 1.5,
+      });
+      expect(result).toBeNull();
     });
 
     test('should accept empty comment', () => {
@@ -90,7 +99,7 @@ describe('validateFeedbackData', () => {
       const result = validateFeedbackData({});
       expect(result).toMatchObject({
         code: 'INVALID_DATA',
-        message: 'feedbackRating is required and must be one of: good, normal, bad.',
+        message: 'feedbackRating is required and must be one of: good, decent, normal, weak, bad.',
       });
     });
 
@@ -100,12 +109,25 @@ describe('validateFeedbackData', () => {
       });
       expect(result).toMatchObject({
         code: 'INVALID_DATA',
-        message: 'feedbackRating is required and must be one of: good, normal, bad.',
+        message: 'feedbackRating is required and must be one of: good, decent, normal, weak, bad.',
       });
     });
 
     test('should return error for invalid feedbackRating values', () => {
-      const invalidRatings = ['excellent', 'poor', 'ok', 'GOOD', 'Bad', 123, true];
+      const invalidRatings = [
+        'excellent',
+        'poor',
+        'ok',
+        'GOOD',
+        'Bad',
+        'Decent',
+        'WEAK',
+        ' weak',
+        'decent ',
+        '',
+        123,
+        true,
+      ];
 
       invalidRatings.forEach((rating) => {
         const result = validateFeedbackData({
@@ -113,7 +135,8 @@ describe('validateFeedbackData', () => {
         });
         expect(result).toMatchObject({
           code: 'INVALID_DATA',
-          message: 'feedbackRating is required and must be one of: good, normal, bad.',
+          message:
+            'feedbackRating is required and must be one of: good, decent, normal, weak, bad.',
         });
       });
     });
