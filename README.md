@@ -29,7 +29,7 @@
 
 ### 在瀏覽器中使用
 
-您可以直接在您的 HTML 檔案中引入本地建構好的 UMD 包，或透過 jsDelivr CDN 引入。一個可執行的完整範例請參考 [`demo.html`](./demo.html) 檔案。
+您可以直接在您的 HTML 檔案中引入本地建構好的 UMD 包，或從雲端服務、機關地端 Agent 引入。一個可執行的完整範例請參考 [`demo.html`](./demo.html) 檔案。
 
 **本地建置**
 
@@ -37,10 +37,28 @@
 <script src="./dist/feedback-sdk.min.js"></script>
 ```
 
-**CDN**
+建議從遠端引入時加上 SRI 雜湊值以確保檔案未遭竄改，各版本雜湊值請參考 [`SRI.md`](./SRI.md)。
+
+**雲端服務**
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/nics-tw/aifeedback-sdk@1.0.0/dist/feedback-sdk.min.js"></script>
+<script
+  src="https://aifeedback.nics.nat.gov.tw/sdk/1.1.0/feedback-sdk.min.js"
+  integrity="sha384-3B+uPvIZL8Ybbj6eQvd/ZWK5neMh8t0NYo2RXE7EIKurpQ1Z4jtNGZyDi4/2vDhP"
+  crossorigin="anonymous"
+></script>
+```
+
+**機關地端 Agent**
+
+請將 `{機關地端Agent路徑}` 替換為貴機關地端 Agent 的實際網域與路徑：
+
+```html
+<script
+  src="https://{機關地端Agent路徑}/sdk/1.1.0/feedback-sdk.min.js"
+  integrity="sha384-3B+uPvIZL8Ybbj6eQvd/ZWK5neMh8t0NYo2RXE7EIKurpQ1Z4jtNGZyDi4/2vDhP"
+  crossorigin="anonymous"
+></script>
 ```
 
 ## 使用方法
@@ -101,7 +119,7 @@ submitFeedback({
 提交使用者回饋。
 
 - `feedbackData` `<Object>` (必填): 包含回饋內容的物件。
-  - `feedbackRating` `<string>` (必填): 其值必須是 `"good"`, `"normal"`, 或 `"bad"` 其中之一。
+  - `feedbackRating` `<string>` (必填): 其值必須是 `"good"`, `"decent"`, `"normal"`, `"weak"`, 或 `"bad"` 其中之一。
   - `feedbackComment` `<string>` (選填): 長度上限為 500 字元的字串。
   - `inferenceSec` `<number>` (選填): 一個非負數，代表互動的秒數。
 - **回傳值**: `<Promise<Object>>` 一個 promise，成功時會 resolve 伺服器回傳的物件。

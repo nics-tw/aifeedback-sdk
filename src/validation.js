@@ -1,6 +1,6 @@
 import { createError } from './errors';
 
-const ALLOWED_RATINGS = ['good', 'normal', 'bad'];
+const ALLOWED_RATINGS = ['good', 'decent', 'normal', 'weak', 'bad'];
 const MAX_COMMENT_LENGTH = 500;
 
 export function validateFeedbackData(feedbackData) {

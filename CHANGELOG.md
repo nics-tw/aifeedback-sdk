@@ -7,9 +7,18 @@
 
 ## [未發佈]
 
+## [1.1.0] - 2026-11-19
+
 ### 新增
 
-- 在這裡加入您的新功能。
+- `feedbackRating` 新增 `"decent"` 與 `"weak"` 兩個評分選項。
+- 範例頁面新增「三元／五元」評分模式切換，可分別測試原有與新增的評分選項。
+
+### 變更
+
+- `feedbackRating` 驗證失敗時的錯誤訊息改為列出全部五個允許值。
+- SDK 改由雲端服務（`https://aifeedback.nics.nat.gov.tw/sdk/<版本>/feedback-sdk.min.js`）與機關地端 Agent（`https://{機關地端Agent路徑}/sdk/<版本>/feedback-sdk.min.js`）提供，不再提供 jsDelivr CDN 引入方式。
+- 新增 `SRI.md`，列出各版本的 SRI 雜湊值。
 
 ## [1.0.0] - 2025-06-14
 
